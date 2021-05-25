@@ -9,11 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VaiChover">
-        <activity
-            android:name=".view.CityListActivity"
-            android:label="@string/title_activity_city_list"
-            android:theme="@style/Theme.VaiChover.NoActionBar"></activity>
-        <activity android:name=".view.WeatherActivity" />
+        <activity android:name=".view.WeatherActivity"></activity>
+        <activity android:name=".view.CityListActivity"></activity>
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,10 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

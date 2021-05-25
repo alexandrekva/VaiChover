@@ -5,7 +5,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/dark_text</item>
-        <item name="fontFamily">@font/nunito_extrabold</item>
+<!--        <item name="fontFamily">@font/nunito_extrabold</item>-->
     </style>
 
     <style name="city_text">
@@ -13,7 +13,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">28sp</item>
         <item name="android:textColor">@color/dark_text</item>
-        <item name="fontFamily">@font/nunito_extrabold</item>
+<!--        <item name="fontFamily">@font/nunito_extrabold</item>-->
     </style>
 
     <style name="min_max_text">
@@ -21,7 +21,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/dark_text</item>
-        <item name="fontFamily">@font/nunito_extrabold</item>
+<!--        <item name="fontFamily">@font/nunito_extrabold</item>-->
     </style>
 
     <style name="weather_text">
@@ -29,7 +29,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">32sp</item>
         <item name="android:textColor">@color/dark_text</item>
-        <item name="fontFamily">@font/nunito_extrabold</item>
+<!--        <item name="fontFamily">@font/nunito_extrabold</item>-->
     </style>
 
     <style name="weather_description_text">
@@ -37,7 +37,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/dark_text</item>
-        <item name="fontFamily">@font/nunito_extrabold</item>
+<!--        <item name="fontFamily">@font/nunito_extrabold</item>-->
     </style>
 
     <style name="humidity_text">
@@ -45,6 +45,6 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/dark_text</item>
-        <item name="fontFamily">@font/nunito_extrabold</item>
+<!--        <item name="fontFamily">@font/nunito_extrabold</item>-->
     </style>
 </resources>

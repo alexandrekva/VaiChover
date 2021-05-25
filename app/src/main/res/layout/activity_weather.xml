@@ -7,7 +7,7 @@
     tools:context=".view.WeatherActivity">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/clima_icone_image_view"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:src="@drawable/ic_cloudy"
@@ -18,7 +18,7 @@
         app:layout_constraintVertical_bias="0.35" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/clima_text_view"
         style="@style/weather_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/cidade_temperatura_text_view"
         style="@style/city_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,48 +41,50 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/temperatura_minima_text_view"
         style="@style/min_max_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="29°"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintEnd_toEndOf="@+id/temperatura_maxima_text_view"
+        app:layout_constraintStart_toStartOf="@+id/temperatura_maxima_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/temperatura_maxima_text_view" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/temperatura_maxima_text_view"
         style="@style/min_max_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="30°"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintEnd_toEndOf="@+id/clima_icone_image_view"
+        app:layout_constraintStart_toStartOf="@+id/clima_icone_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/clima_icone_image_view" />
 
     <TextView
+        android:id="@+id/clima_descricao_text_view"
         style="@style/weather_description_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Scattered clouds"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintEnd_toEndOf="@+id/cidade_temperatura_text_view"
+        app:layout_constraintStart_toStartOf="@+id/cidade_temperatura_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/cidade_temperatura_text_view" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/humidade_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="74%"
         style="@style/humidity_text"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintStart_toEndOf="@+id/clima_icone_image_view"
+        app:layout_constraintTop_toTopOf="@+id/clima_icone_image_view" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/adicionar_cidade_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
