@@ -7,15 +7,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.vaichover.R;
+import com.example.vaichover.controller.OpenWeatherController;
+import com.example.vaichover.controller.WeatherService;
+import com.example.vaichover.model.WeatherResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WeatherActivity extends AppCompatActivity {
 
     private TextView textViewClima, textViewHumidade, textViewTempMax, textViewTempMin, textViewCidadeTemp, textViewClimaDescricao;
     private ImageView climaIconeImageView;
     private FloatingActionButton adicionarCidadeFAB;
+    private WeatherResponse weatherResponse =  new WeatherResponse();
+
+    private OpenWeatherController openWeatherController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +36,29 @@ public class WeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weather);
 
         inicializarViews();
+        openWeatherController = new OpenWeatherController();
+
+
+        Call<WeatherResponse> call = openWeatherController.consultarApi("salvador");
+
+
+        call.enqueue(new Callback<WeatherResponse>() {
+            @Override
+            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+                weatherResponse = response.body();
+
+                textViewClimaDescricao.setText(weatherResponse.getWeather().get(0).getDescription());
+
+            }
+
+            @Override
+            public void onFailure(Call<WeatherResponse> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+
+
+
 
         adicionarCidadeFAB.setOnClickListener(new View.OnClickListener() {
             @Override
