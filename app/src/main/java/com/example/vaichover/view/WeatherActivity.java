@@ -1,25 +1,18 @@
 package com.example.vaichover.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.vaichover.R;
 import com.example.vaichover.controller.OpenWeatherController;
-import com.example.vaichover.controller.WeatherService;
 import com.example.vaichover.model.WeatherResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -39,7 +32,7 @@ public class WeatherActivity extends AppCompatActivity {
         openWeatherController = new OpenWeatherController();
 
 
-        Call<WeatherResponse> call = openWeatherController.consultarApi("salvador");
+        Call<WeatherResponse> call = openWeatherController.consultarApiCidade("salvador");
 
 
         call.enqueue(new Callback<WeatherResponse>() {
@@ -48,6 +41,7 @@ public class WeatherActivity extends AppCompatActivity {
                 weatherResponse = response.body();
 
                 textViewClimaDescricao.setText(weatherResponse.getWeather().get(0).getDescription());
+                textViewCidadeTemp.setText(weatherResponse.getName() );
 
             }
 

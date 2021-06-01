@@ -20,10 +20,10 @@ public class OpenWeatherController {
 
 
 
-    public Call consultarApi(String cidade) {
+    public Call consultarApiCidade(String cidade) {
 
         WeatherService weatherService = retrofit.create( WeatherService.class );
-        Call<WeatherResponse> call = weatherService.recuperarClima();
+        Call<WeatherResponse> call = weatherService.recuperarClimaCidade(cidade, "ff38d6ed505acc0b54cf1bf742b4818b", "metric");
 
         return call;
     }

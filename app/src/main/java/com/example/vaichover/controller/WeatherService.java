@@ -4,10 +4,17 @@ import com.example.vaichover.model.WeatherResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface WeatherService {
 
-    @GET("weather?q=salvador&appid=ff38d6ed505acc0b54cf1bf742b4818b&units=metric")
-    Call<WeatherResponse> recuperarClima();
+    @GET("weather")
+    Call<WeatherResponse> recuperarClimaCidade(
+            @Query("q") String cidade,
+            @Query("appid") String appid,
+            @Query("units") String units
+    );
+
+
 
 }
