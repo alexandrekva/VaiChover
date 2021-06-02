@@ -23,7 +23,24 @@ public class OpenWeatherController {
     public Call consultarApiCidade(String cidade) {
 
         WeatherService weatherService = retrofit.create( WeatherService.class );
-        Call<WeatherResponse> call = weatherService.recuperarClimaCidade(cidade, "ff38d6ed505acc0b54cf1bf742b4818b", "metric");
+        Call<WeatherResponse> call = weatherService.recuperarClimaCidade(
+                cidade,
+                "ff38d6ed505acc0b54cf1bf742b4818b",
+                "metric",
+                "pt_br");
+
+        return call;
+    }
+
+    public Call consultarApiCordenadas(Double lat, Double lon) {
+
+        WeatherService weatherService = retrofit.create( WeatherService.class );
+        Call<WeatherResponse> call = weatherService.recuperarClimaCordenadas(
+                lat,
+                lon,
+                "ff38d6ed505acc0b54cf1bf742b4818b",
+                "metric",
+                "pt_br");
 
         return call;
     }

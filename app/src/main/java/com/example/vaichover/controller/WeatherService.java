@@ -12,7 +12,17 @@ public interface WeatherService {
     Call<WeatherResponse> recuperarClimaCidade(
             @Query("q") String cidade,
             @Query("appid") String appid,
-            @Query("units") String units
+            @Query("units") String units,
+            @Query("lang") String lang
+    );
+
+    @GET("weather")
+    Call<WeatherResponse> recuperarClimaCordenadas(
+            @Query("lat") Double lat,
+            @Query("lon") Double lon,
+            @Query("appid") String appid,
+            @Query("units") String units,
+            @Query("lang") String lang
     );
 
 

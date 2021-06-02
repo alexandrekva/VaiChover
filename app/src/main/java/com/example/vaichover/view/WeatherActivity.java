@@ -1,15 +1,37 @@
 package com.example.vaichover.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.vaichover.R;
 import com.example.vaichover.controller.OpenWeatherController;
 import com.example.vaichover.model.WeatherResponse;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,7 +42,7 @@ public class WeatherActivity extends AppCompatActivity {
     private ImageView climaIconeImageView;
     private FloatingActionButton adicionarCidadeFAB;
     private WeatherResponse weatherResponse =  new WeatherResponse();
-
+    private FusedLocationProviderClient fusedLocationProviderClient;
     private OpenWeatherController openWeatherController;
 
     @Override
@@ -30,29 +52,45 @@ public class WeatherActivity extends AppCompatActivity {
 
         inicializarViews();
         openWeatherController = new OpenWeatherController();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (ActivityCompat.checkSelfPermission(
+                WeatherActivity.this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull @NotNull Task<Location> task) {
+                    Location location = task.getResult();
+                    Double lat = location.getLatitude();
+                    Double lon = location.getLongitude();
+
+                    Call<WeatherResponse> call = openWeatherController.consultarApiCordenadas(lat, lon);
 
 
-        Call<WeatherResponse> call = openWeatherController.consultarApiCidade("salvador");
+                    call.enqueue(new Callback<WeatherResponse>() {
+                        @Override
+                        public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+                            weatherResponse = response.body();
 
+                            textViewClimaDescricao.setText(weatherResponse.getWeather().get(0).getDescription());
+                            textViewCidadeTemp.setText(weatherResponse.getName() );
 
-        call.enqueue(new Callback<WeatherResponse>() {
-            @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                weatherResponse = response.body();
+                        }
 
-                textViewClimaDescricao.setText(weatherResponse.getWeather().get(0).getDescription());
-                textViewCidadeTemp.setText(weatherResponse.getName() );
+                        @Override
+                        public void onFailure(Call<WeatherResponse> call, Throwable t) {
+                            System.out.println(t.getMessage());
+                        }
+                    });
 
-            }
+                }
+            });
 
-            @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-                System.out.println(t.getMessage());
-            }
-        });
-
-
-
+        } else {
+            ActivityCompat.requestPermissions( WeatherActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+        }
 
         adicionarCidadeFAB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +98,11 @@ public class WeatherActivity extends AppCompatActivity {
                 activityListaCidades();
             }
         });
+
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getLocation(){
 
     }
 
