@@ -8,8 +8,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
@@ -18,8 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.vaichover.R;
-import com.example.vaichover.controller.OpenWeatherController;
+import com.example.vaichover.service.WeatherService;
 import com.example.vaichover.model.WeatherResponse;
+import com.example.vaichover.util.GetWeatherIcon;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,9 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import java.text.DecimalFormat;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +41,7 @@ public class WeatherActivity extends AppCompatActivity {
     private FloatingActionButton adicionarCidadeFAB;
     private WeatherResponse weatherResponse =  new WeatherResponse();
     private FusedLocationProviderClient fusedLocationProviderClient;
-    private OpenWeatherController openWeatherController;
+    private WeatherService weatherService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +49,7 @@ public class WeatherActivity extends AppCompatActivity {
         setContentView(R.layout.activity_weather);
 
         inicializarViews();
-        openWeatherController = new OpenWeatherController();
+        weatherService = new WeatherService();
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (ActivityCompat.checkSelfPermission(this,
@@ -108,7 +106,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     private void getWeatherResponse(Double lat, Double lon) {
 
-        Call<WeatherResponse> call = openWeatherController.consultarApiCordenadas(lat, lon);
+        Call<WeatherResponse> call = weatherService.consultarApiCordenadas(lat, lon);
 
         call.enqueue(new Callback<WeatherResponse>() {
             @Override
@@ -125,12 +123,18 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     private void setWeather() {
+        DecimalFormat decimalFormat = new DecimalFormat("#");
 
-        textViewHumidade.setText(weatherResponse.getMain().getHumidity().toString() + "%");
-        textViewTempMin.setText(weatherResponse.getMain().getTemp_min().toString() + "º");
-        textViewTempMax.setText(weatherResponse.getMain().getTemp_max().toString() + "º");
-        textViewCidadeTemp.setText(weatherResponse.getName() + ", " + weatherResponse.getMain().getTemp() + " graus.");
-        textViewClimaDescricao.setText(weatherResponse.getWeather().get(0).getDescription());
+        textViewHumidade.setText(decimalFormat.format(weatherResponse.getMain().getHumidity()) + "%");
+        textViewTempMin.setText(decimalFormat.format(weatherResponse.getMain().getTemp_min()) + "º");
+        textViewTempMax.setText(decimalFormat.format(weatherResponse.getMain().getTemp_max()) + "º");
+        textViewCidadeTemp.setText(weatherResponse.getName() + ", " + decimalFormat.format(weatherResponse.getMain().getTemp()) + " graus.");
+
+        String descricao = weatherResponse.getWeather().get(0).getDescription();
+        String formatedDescricao = descricao.substring(0, 1).toUpperCase() + descricao.substring(1);
+        textViewClimaDescricao.setText(formatedDescricao);
+
+        climaIconeImageView.setImageResource(GetWeatherIcon.getIconById(weatherResponse.getWeather().get(0).getId()));
     }
 
     @Override

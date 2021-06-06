@@ -1,4 +1,4 @@
-package com.example.vaichover.controller;
+package com.example.vaichover.service;
 
 import com.example.vaichover.model.WeatherResponse;
 
@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface WeatherService {
+public interface IWeatherService {
 
     @GET("weather")
     Call<WeatherResponse> recuperarClimaCidade(

@@ -11,15 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vaichover.R;
 import com.example.vaichover.model.WeatherResponse;
+import com.example.vaichover.util.GetWeatherIcon;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ViewHolder> {
 
-    private List<WeatherResponse> climas;
+    private static List<WeatherResponse> climas;
 
     public ClimaAdapter(List<WeatherResponse>climas) {
         this.climas = climas;
@@ -39,9 +41,13 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolder holder, int position) {
         WeatherResponse clima = climas.get(position);
-    holder.cidade.setText(clima.getName());
-    holder.tempMin.setText(clima.getMain().getTemp_min().toString() + "º");
-    holder.tempMax.setText(clima.getMain().getTemp_max().toString() + "º");
+        DecimalFormat decimalFormat = new DecimalFormat("#");
+
+        holder.cidade.setText(clima.getName());
+        holder.tempMin.setText(decimalFormat.format(clima.getMain().getTemp_min()) + "º");
+        holder.tempMax.setText(decimalFormat.format(clima.getMain().getTemp_max()) + "º");
+
+        holder.icone.setImageResource(GetWeatherIcon.getIconById(clima.getWeather().get(0).getId()));
 
     }
 
@@ -61,14 +67,27 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ViewHolder> 
             tempMin = itemView.findViewById(R.id.item_temp_min);
             tempMax = itemView.findViewById(R.id.item_temp_max);
             icone = itemView.findViewById(R.id.item_icone);
-
         }
     }
 
-    public void addItem(WeatherResponse clima) {
-        climas.add(clima);
+    public void removeItem(int position) {
+        climas.remove(position);
         notifyDataSetChanged();
     }
 
+    public void addItem(WeatherResponse clima) {
 
+        Boolean contains = false;
+
+        for (WeatherResponse w : climas) {
+            if (clima.getName().equals(w.getName())){
+                contains = true;
+            }
+        }
+
+        if (!contains) {
+            climas.add(clima);
+            notifyDataSetChanged();
+        }
+    }
 }

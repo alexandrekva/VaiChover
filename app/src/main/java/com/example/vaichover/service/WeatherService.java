@@ -1,15 +1,13 @@
-package com.example.vaichover.controller;
+package com.example.vaichover.service;
 
 import com.example.vaichover.model.WeatherResponse;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class OpenWeatherController {
+public class WeatherService {
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://api.openweathermap.org/data/2.5/")
@@ -22,8 +20,8 @@ public class OpenWeatherController {
 
     public Call consultarApiCidade(String cidade) {
 
-        WeatherService weatherService = retrofit.create( WeatherService.class );
-        Call<WeatherResponse> call = weatherService.recuperarClimaCidade(
+        IWeatherService IWeatherService = retrofit.create( IWeatherService.class );
+        Call<WeatherResponse> call = IWeatherService.recuperarClimaCidade(
                 cidade,
                 "ff38d6ed505acc0b54cf1bf742b4818b",
                 "metric",
@@ -34,8 +32,8 @@ public class OpenWeatherController {
 
     public Call consultarApiCordenadas(Double lat, Double lon) {
 
-        WeatherService weatherService = retrofit.create( WeatherService.class );
-        Call<WeatherResponse> call = weatherService.recuperarClimaCordenadas(
+        IWeatherService IWeatherService = retrofit.create( IWeatherService.class );
+        Call<WeatherResponse> call = IWeatherService.recuperarClimaCordenadas(
                 lat,
                 lon,
                 "ff38d6ed505acc0b54cf1bf742b4818b",

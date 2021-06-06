@@ -11,20 +11,18 @@
         android:id="@+id/clima_icone_image_view"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:src="@drawable/ic_cloudy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.35" />
+        app:layout_constraintVertical_bias="0.19999999" />
 
     <TextView
         android:id="@+id/cidade_temperatura_text_view"
         style="@style/city_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="128dp"
-        android:text="Salvador, 29 graus."
+        android:layout_marginBottom="160dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -36,7 +34,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="29°"
         app:layout_constraintEnd_toEndOf="@+id/temperatura_maxima_text_view"
         app:layout_constraintStart_toStartOf="@+id/temperatura_maxima_text_view"
         app:layout_constraintTop_toBottomOf="@+id/temperatura_maxima_text_view" />
@@ -47,7 +44,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="30°"
         app:layout_constraintEnd_toEndOf="@+id/clima_icone_image_view"
         app:layout_constraintStart_toStartOf="@+id/clima_icone_image_view"
         app:layout_constraintTop_toBottomOf="@+id/clima_icone_image_view" />
@@ -58,7 +54,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Scattered clouds"
         app:layout_constraintEnd_toEndOf="@+id/cidade_temperatura_text_view"
         app:layout_constraintStart_toStartOf="@+id/cidade_temperatura_text_view"
         app:layout_constraintTop_toBottomOf="@+id/cidade_temperatura_text_view" />
@@ -68,7 +63,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="74%"
         style="@style/humidity_text"
         app:layout_constraintStart_toEndOf="@+id/clima_icone_image_view"
         app:layout_constraintTop_toTopOf="@+id/clima_icone_image_view" />
