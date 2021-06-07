@@ -1,6 +1,8 @@
 package com.example.vaichover.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,6 +20,8 @@ import com.example.vaichover.service.WeatherService;
 import com.example.vaichover.model.WeatherResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -53,6 +57,20 @@ public class CityListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(CityListActivity.this));
 
         WeatherService weatherService = new WeatherService();
+
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull @NotNull RecyclerView recyclerView, @NonNull @NotNull RecyclerView.ViewHolder viewHolder, @NonNull @NotNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull @NotNull RecyclerView.ViewHolder viewHolder, int direction) {
+                adapter.removeItem(viewHolder.getAdapterPosition());
+            }
+        };
+
+        new ItemTouchHelper(simpleCallback).attachToRecyclerView(recyclerView);
 
 
 
@@ -111,6 +129,7 @@ public class CityListActivity extends AppCompatActivity {
         }
         return new ArrayList<WeatherResponse>();
     }
+
 
     @Override
     protected void onDestroy() {

@@ -70,8 +70,8 @@ public class ClimaAdapter extends RecyclerView.Adapter<ClimaAdapter.ViewHolder> 
         }
     }
 
-    public void removeItem(int position) {
-        climas.remove(position);
+    public void removeItem(int index) {
+        climas.remove(index);
         notifyDataSetChanged();
     }
 
